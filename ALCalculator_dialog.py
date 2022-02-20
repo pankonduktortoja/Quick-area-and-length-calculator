@@ -25,8 +25,8 @@
 import os
 
 from qgis.PyQt import *
-from qgis.utils import iface
-from qgis.core import QgsProject
+from qgis.utils import *
+from qgis.core import *
 from PyQt5.QtCore import *
 from qgis.PyQt.QtGui import *
 from PyQt5.QtWidgets import *
@@ -47,6 +47,7 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
 
+
         self.setupUi(self)
         
         self.stackedWidget.setCurrentWidget(self.home)
@@ -56,6 +57,12 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         self.pbJumpArea.clicked.connect(self.gotoArea)
         self.pbJumpLength.clicked.connect(self.gotoLength)
 
+
+        #precisionValue = self.spLengthPrecision.value()
+
+        self.cbLengthLayerList.setFilters(QgsMapLayerProxyModel.LineLayer)
+        self.cbAreaLayerList.setFilters(QgsMapLayerProxyModel.PolygonLayer)
+
     def gotoArea(self):
         self.stackedWidget.setCurrentWidget(self.area)
         
@@ -63,12 +70,3 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         self.stackedWidget.setCurrentWidget(self.length)
 
 
-       # def show(self):
-           # self.main_win.show()
-
-        #def showArea(self):
-           # self.ui.stackedWidget.setCurrentWidget(self.ui.area)
-
-        #def showLength(self):
-            #self.ui.stackedWidget.setCurrentWidget(self.ui.length)
-            
