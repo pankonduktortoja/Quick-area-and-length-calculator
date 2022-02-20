@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ALCalculatorDialogBase</class>
- <widget class="QDialog" name="ALCalculatorDialogBase">
+ <class>ALCalculatorDialog</class>
+ <widget class="QDialog" name="ALCalculatorDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -612,7 +612,7 @@
   <connection>
    <sender>button_box</sender>
    <signal>accepted()</signal>
-   <receiver>ALCalculatorDialogBase</receiver>
+   <receiver>ALCalculatorDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -628,7 +628,7 @@
   <connection>
    <sender>button_box</sender>
    <signal>rejected()</signal>
-   <receiver>ALCalculatorDialogBase</receiver>
+   <receiver>ALCalculatorDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
