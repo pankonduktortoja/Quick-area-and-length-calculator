@@ -42,40 +42,34 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         super(ALCalculatorDialog, self).__init__(parent)
 
         self.setupUi(self)
-        
         self.stackedWidget.setCurrentWidget(self.home)
-
         self.pbAreaPage.clicked.connect(self.gotoArea)
         self.pbLengthPage.clicked.connect(self.gotoLength)
         self.pbJumpArea.clicked.connect(self.gotoArea)
         self.pbJumpLength.clicked.connect(self.gotoLength)
-
         self.cbLengthLayerList.setFilters(QgsMapLayerProxyModel.LineLayer)
         self.cbAreaLayerList.setFilters(QgsMapLayerProxyModel.PolygonLayer)
-
         self.pbLengthCalc.clicked.connect(self.onPbLengthCalcClicked)
         self.pbAreaCalc.clicked.connect(self.onPbAreaCalcClicked)
-
-        
 
     def onPbLengthCalcClicked(self):
         precision_value = self.sbLengthPrecision.value()
         layer = self.cbLengthLayerList.currentLayer()
-        miles_conv = 0.621371192
-        yard_conv = 1093.6132983377
-        meters_conv = 1000
+        miles_conv = 0.000621371192
+        yard_conv = 1.0936132983
+        kilometers_conv = 1000
         if self.rbLengthMeters.isChecked():
             total_length = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_length += geometry.length()
-            total_length = total_length * meters_conv
             self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
         elif self.rbLengthKilometers.isChecked():
             total_length = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_length += geometry.length()
+            total_length = total_length / kilometers_conv
             self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
         elif self.rbLengthMiles.isChecked():
             total_length = 0
@@ -92,41 +86,40 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
             total_length = total_length * yard_conv
             self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
 
-
     def onPbAreaCalcClicked(self):
         precision_value = self.sbAreaPrecision.value()
         layer = self.cbAreaLayerList.currentLayer()
-        sqmiles_conv = 0.386102159
-        sqyards_conv = 1195990.05
-        sqmeters_conv = 1000000
-        hectares_conv = 100
-        acres_conv = 10000
+        sqmiles_conv = 0.00000038610215855
+        sqyards_conv = 1.19598993
+        sqkilometers_conv = 1000000
+        hectares_conv = 10000
+        ares_conv = 0.01
         if self.rbAreaMeters.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
-            total_area = total_area * sqmeters_conv
             self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaKilometers.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
+            total_area = total_area / sqkilometers_conv
             self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaAres.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
-                total_area = total_area * acres_conv
+                total_area = total_area * ares_conv
             self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaHectares.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
-                total_area = total_area * hectares_conv
+                total_area = total_area / hectares_conv
             self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaMiles.isChecked():
             total_area = 0
@@ -142,10 +135,6 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
                 total_area += geometry.area()
                 total_area = total_area * sqyards_conv
             self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
-
-        #debug
-        print(precision_value)
-
 
     def gotoArea(self):
         self.stackedWidget.setCurrentWidget(self.area)
