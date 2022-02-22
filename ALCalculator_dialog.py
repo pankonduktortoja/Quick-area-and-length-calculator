@@ -32,8 +32,6 @@ from qgis.PyQt.QtGui import *
 from PyQt5.QtWidgets import *
 from qgis.gui import *
 
-
-# This loads your .ui file so that PyQt can populate your plugin with the elements from Qt Designer
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'ALCalculator_dialog_base.ui'))
 
@@ -42,12 +40,6 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(ALCalculatorDialog, self).__init__(parent)
-        # Set up the user interface from Designer through FORM_CLASS.
-        # After self.setupUi() you can access any designer object by doing
-        # self.<objectname>, and you can use autoconnect slots - see
-        # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
-        # #widgets-and-dialogs-with-auto-connect
-
 
         self.setupUi(self)
         
@@ -58,18 +50,17 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         self.pbJumpArea.clicked.connect(self.gotoArea)
         self.pbJumpLength.clicked.connect(self.gotoLength)
 
-
-        #precisionValue = self.spLengthPrecision.value()
-
         self.cbLengthLayerList.setFilters(QgsMapLayerProxyModel.LineLayer)
         self.cbAreaLayerList.setFilters(QgsMapLayerProxyModel.PolygonLayer)
 
         self.pbLengthCalc.clicked.connect(self.onPbLengthCalcClicked)
         self.pbAreaCalc.clicked.connect(self.onPbAreaCalcClicked)
 
+        
+
     def onPbLengthCalcClicked(self):
-        self.cb = QgsMapLayerComboBox(self)
-        layer = self.cb.currentLayer()
+        precision_value = self.sbLengthPrecision.value()
+        layer = self.cbLengthLayerList.currentLayer()
         miles_conv = 0.621371192
         yard_conv = 1093.6132983377
         meters_conv = 1000
@@ -79,32 +70,32 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
                 geometry = feat.geometry()
                 total_length += geometry.length()
             total_length = total_length * meters_conv
-            self.lblLengthResult.setText("%.2f" % total_length)
+            self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
         elif self.rbLengthKilometers.isChecked():
             total_length = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_length += geometry.length()
-            self.lblLengthResult.setText("%.2f" % total_length)
+            self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
         elif self.rbLengthMiles.isChecked():
             total_length = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_length += geometry.length()
             total_length = total_length * miles_conv
-            self.lblLengthResult.setText("%.2f" % total_length)
+            self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
         elif self.rbLengthYards.isChecked():
             total_length = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_length += geometry.length()
             total_length = total_length * yard_conv
-            self.lblLengthResult.setText("%.2f" % total_length)
+            self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
 
 
     def onPbAreaCalcClicked(self):
-        self.cb = QgsMapLayerComboBox(self)
-        layer = self.cb.currentLayer()
+        precision_value = self.sbAreaPrecision.value()
+        layer = self.cbAreaLayerList.currentLayer()
         sqmiles_conv = 0.386102159
         sqyards_conv = 1195990.05
         sqmeters_conv = 1000000
@@ -116,41 +107,44 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
                 geometry = feat.geometry()
                 total_area += geometry.area()
             total_area = total_area * sqmeters_conv
-            self.lblAreaResult.setText("%.2f" % total_area)
+            self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaKilometers.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
-            self.lblAreaResult.setText("%.2f" % total_area)
+            self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaAres.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
                 total_area = total_area * acres_conv
-            self.lblAreaResult.setText("%.2f" % total_area)
+            self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaHectares.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
                 total_area = total_area * hectares_conv
-            self.lblAreaResult.setText("%.2f" % total_area)
+            self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaMiles.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
                 total_area = total_area * sqmiles_conv
-            self.lblAreaResult.setText("%.2f" % total_area)
+            self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
         elif self.rbAreaYards.isChecked():
             total_area = 0
             for feat in layer.getFeatures():
                 geometry = feat.geometry()
                 total_area += geometry.area()
                 total_area = total_area * sqyards_conv
-            self.lblAreaResult.setText("%.2f" % total_area)
+            self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
+
+        #debug
+        print(precision_value)
 
 
     def gotoArea(self):
