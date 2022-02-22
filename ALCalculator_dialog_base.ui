@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>380</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>600</width>
-    <height>380</height>
+    <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>600</width>
-    <height>380</height>
+    <height>500</height>
    </size>
   </property>
   <property name="font">
@@ -34,7 +34,7 @@
    <property name="geometry">
     <rect>
      <x>410</x>
-     <y>340</y>
+     <y>460</y>
      <width>150</width>
      <height>25</height>
     </rect>
@@ -42,6 +42,7 @@
    <property name="font">
     <font>
      <family>Arial</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="orientation">
@@ -57,7 +58,7 @@
      <x>10</x>
      <y>10</y>
      <width>580</width>
-     <height>321</height>
+     <height>441</height>
     </rect>
    </property>
    <property name="font">
@@ -66,7 +67,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="home">
     <widget class="QPushButton" name="pbAreaPage">
@@ -177,8 +178,8 @@
       <rect>
        <x>10</x>
        <y>100</y>
-       <width>42</width>
-       <height>22</height>
+       <width>55</width>
+       <height>25</height>
       </rect>
      </property>
      <property name="maximum">
@@ -212,7 +213,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>250</y>
        <width>171</width>
        <height>17</height>
       </rect>
@@ -234,7 +235,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>180</y>
+       <y>280</y>
        <width>181</width>
        <height>17</height>
       </rect>
@@ -253,7 +254,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>270</y>
+       <y>370</y>
        <width>201</width>
        <height>17</height>
       </rect>
@@ -272,7 +273,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>300</y>
+       <y>400</y>
        <width>201</width>
        <height>17</height>
       </rect>
@@ -324,6 +325,9 @@
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
     </widget>
     <widget class="QPushButton" name="pbJumpLength">
      <property name="geometry">
@@ -361,14 +365,14 @@
       </font>
      </property>
      <property name="text">
-      <string>Select unit of measure</string>
+      <string>Choose unit of measure</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="rbAreaMiles">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>310</y>
        <width>181</width>
        <height>17</height>
       </rect>
@@ -387,7 +391,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>240</y>
+       <y>340</y>
        <width>181</width>
        <height>17</height>
       </rect>
@@ -416,13 +420,51 @@
      <property name="geometry">
       <rect>
        <x>400</x>
-       <y>290</y>
+       <y>410</y>
        <width>150</width>
        <height>25</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Copy result to clipboard</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbAreaCustom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>141</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Custom multiplier</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>250</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
    </widget>
@@ -502,6 +544,9 @@
      <property name="text">
       <string/>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
     </widget>
     <widget class="QLabel" name="label_7">
      <property name="geometry">
@@ -516,7 +561,7 @@
       <font>
        <family>Arial</family>
        <pointsize>10</pointsize>
-       <italic>false</italic>
+       <italic>true</italic>
       </font>
      </property>
      <property name="text">
@@ -548,13 +593,14 @@
       <rect>
        <x>10</x>
        <y>100</y>
-       <width>42</width>
-       <height>22</height>
+       <width>55</width>
+       <height>25</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial</family>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="maximum">
@@ -581,14 +627,14 @@
       </font>
      </property>
      <property name="text">
-      <string>Select unit of measure</string>
+      <string>Choose unit of measure</string>
      </property>
     </widget>
     <widget class="QRadioButton" name="rbLengthMeters">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>250</y>
        <width>171</width>
        <height>17</height>
       </rect>
@@ -610,7 +656,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>180</y>
+       <y>280</y>
        <width>171</width>
        <height>17</height>
       </rect>
@@ -632,7 +678,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>310</y>
        <width>171</width>
        <height>17</height>
       </rect>
@@ -654,7 +700,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>240</y>
+       <y>340</y>
        <width>171</width>
        <height>17</height>
       </rect>
@@ -691,13 +737,51 @@
      <property name="geometry">
       <rect>
        <x>400</x>
-       <y>290</y>
+       <y>410</y>
        <width>150</width>
        <height>25</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Copy result to clipboard</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>250</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rbLengthCustom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>171</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Custom multiplier</string>
      </property>
     </widget>
    </widget>
