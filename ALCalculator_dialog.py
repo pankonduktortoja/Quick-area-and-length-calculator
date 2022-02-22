@@ -51,6 +51,8 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         self.cbAreaLayerList.setFilters(QgsMapLayerProxyModel.PolygonLayer)
         self.pbLengthCalc.clicked.connect(self.onPbLengthCalcClicked)
         self.pbAreaCalc.clicked.connect(self.onPbAreaCalcClicked)
+        self.pbAreaClipboard.clicked.connect(self.onPbAreaClipboardClicked)
+        self.pbLengthClipboard.clicked.connect(self.onPbLengthClipboardClicked)
 
     def onPbLengthCalcClicked(self):
         precision_value = self.sbLengthPrecision.value()
@@ -141,5 +143,15 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         
     def gotoLength(self):
         self.stackedWidget.setCurrentWidget(self.length)
+
+    def onPbAreaClipboardClicked(self):
+        cb = QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(self.lblAreaResult.text(), mode=cb.Clipboard)
+
+    def onPbLengthClipboardClicked(self):
+        cb = QApplication.clipboard()
+        cb.clear(mode=cb.Clipboard)
+        cb.setText(self.lblLengthResult.text(), mode=cb.Clipboard)
 
 
