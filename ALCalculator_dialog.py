@@ -42,18 +42,23 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
         super(ALCalculatorDialog, self).__init__(parent)
 
         self.setupUi(self)
+        #sets the page to home
         self.stackedWidget.setCurrentWidget(self.home)
+        #navigation buttons
         self.pbAreaPage.clicked.connect(self.gotoArea)
         self.pbLengthPage.clicked.connect(self.gotoLength)
         self.pbJumpArea.clicked.connect(self.gotoArea)
         self.pbJumpLength.clicked.connect(self.gotoLength)
+        #setting filters for layer list by geometry type
         self.cbLengthLayerList.setFilters(QgsMapLayerProxyModel.LineLayer)
         self.cbAreaLayerList.setFilters(QgsMapLayerProxyModel.PolygonLayer)
+        #calculate buttons
         self.pbLengthCalc.clicked.connect(self.onPbLengthCalcClicked)
         self.pbAreaCalc.clicked.connect(self.onPbAreaCalcClicked)
+        #copy to clipboard buttons
         self.pbAreaClipboard.clicked.connect(self.onPbAreaClipboardClicked)
         self.pbLengthClipboard.clicked.connect(self.onPbLengthClipboardClicked)
-
+    #calculates length on click
     def onPbLengthCalcClicked(self):
         precision_value = self.sbLengthPrecision.value()
         layer = self.cbLengthLayerList.currentLayer()
@@ -87,7 +92,7 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
                 total_length += geometry.length()
             total_length = total_length * yard_conv
             self.lblLengthResult.setText('%.*f' % (precision_value, total_length))
-
+    #calculates area on click
     def onPbAreaCalcClicked(self):
         precision_value = self.sbAreaPrecision.value()
         layer = self.cbAreaLayerList.currentLayer()
@@ -137,18 +142,16 @@ class ALCalculatorDialog(QtWidgets.QDialog, FORM_CLASS):
                 total_area += geometry.area()
                 total_area = total_area * sqyards_conv
             self.lblAreaResult.setText('%.*f' % (precision_value, total_area))
-
+    #navigation buttons
     def gotoArea(self):
         self.stackedWidget.setCurrentWidget(self.area)
-        
     def gotoLength(self):
         self.stackedWidget.setCurrentWidget(self.length)
-
+    #copy to clipboard buttons
     def onPbAreaClipboardClicked(self):
         cb = QApplication.clipboard()
         cb.clear(mode=cb.Clipboard)
         cb.setText(self.lblAreaResult.text(), mode=cb.Clipboard)
-
     def onPbLengthClipboardClicked(self):
         cb = QApplication.clipboard()
         cb.clear(mode=cb.Clipboard)
